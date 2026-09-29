@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Derryberry Auction Co. | Decaturville, TN</title>
+<meta name="description" content="Derryberry Auction Co. — vehicle, estate, and farm auctions serving Decatur County and West Tennessee. See current lots and register to bid.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Oswald:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FBF5E4;
+    --paper-deep: #F2E9CB;
+    --ink: #241F17;
+    --ink-soft: #524B3B;
+    --brass: #C6862A;
+    --brass-deep: #9C6A1E;
+    --barn: #A13B22;
+    --barn-deep: #7E2E1A;
+    --moss: #5B7A4F;
+    --sun: #E8A23D;
+    --line: #DCCEA1;
+    --max: 1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body{
+    background-image:
+      linear-gradient(var(--paper) 0%, var(--paper) 100%),
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 27px,
+        rgba(169,119,47,0.055) 28px
+      );
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Rye', 'Georgia', serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    color:var(--ink);
+    margin:0;
+  }
+
+  .tag-font{
+    font-family:'Oswald', sans-serif;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+  }
+
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* Shared photo treatment — ties five different stock photos into one palette */
+  .photo{
+    position:relative;
+    overflow:hidden;
+    background:var(--ink);
+  }
+  .photo img{
+    width:100%; height:100%;
+    object-fit:cover;
+    filter:saturate(1.18) contrast(1.08) brightness(1.05);
+    transition:transform .6s cubic-bezier(.2,.7,.3,1);
+  }
+  .photo::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(155deg, rgba(198,134,42,0.10), rgba(91,122,79,0.06) 55%, rgba(36,31,23,0.05));
+    mix-blend-mode:multiply;
+    pointer-events:none;
+  }
+
+  /* Reveal-on-scroll — subtle, respects reduced-motion via the global rule above */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(241,236,220,0.92);
+    backdrop-filter:saturate(140%) blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 24px;
+    max-width:var(--max);
+    margin:0 auto;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+  }
+  .brand-mark{
+    width:44px; height:44px;
+    border-radius:50%;
+    border:2px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Rye', serif;
+    font-size:15px;
+    color:var(--brass-deep);
+    flex:none;
+  }
+  .brand-text{
+    display:flex; flex-direction:column; line-height:1.1;
+  }
+  .brand-name{
+    font-family:'Rye', serif;
+    font-size:20px;
+    color:var(--ink);
+  }
+  .brand-sub{
+    font-family:'Oswald', sans-serif;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+
+  nav.primary{
+    display:flex; align-items:center; gap:28px;
+  }
+  nav.primary a{
+    text-decoration:none;
+    font-family:'Oswald', sans-serif;
+    font-size:13px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid transparent;
+    padding-bottom:3px;
+    transition:color .15s, border-color .15s;
+  }
+  nav.primary a:hover{ color:var(--barn); border-color:var(--barn); }
+  nav.primary a.is-active{ color:var(--barn); border-color:var(--barn); }
+
+  .header-cta{
+    display:flex; align-items:center; gap:14px;
+  }
+  .phone-link{
+    font-family:'Oswald', sans-serif;
+    font-size:13px;
+    letter-spacing:0.04em;
+    text-decoration:none;
+    color:var(--ink);
+    display:none;
+  }
+
+  .menu-btn{
+    display:none;
+    background:none;
+    border:1px solid var(--line);
+    border-radius:6px;
+    width:40px; height:36px;
+    align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .menu-btn span, .menu-btn::before, .menu-btn::after{
+    content:'';
+    display:block;
+    width:18px; height:2px;
+    background:var(--ink);
+    position:relative;
+  }
+  .menu-btn::before{ transform:translateY(-6px); position:absolute; }
+  .menu-btn::after{ transform:translateY(6px); position:absolute; }
+
+  @media (max-width: 860px){
+    nav.primary{
+      position:fixed; inset:64px 0 auto 0;
+      background:var(--paper);
+      flex-direction:column;
+      align-items:flex-start;
+      gap:0;
+      border-bottom:1px solid var(--line);
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    nav.primary.open{ max-height:340px; }
+    nav.primary a{
+      width:100%;
+      padding:14px 24px;
+      border-bottom:1px solid var(--line);
+    }
+    .menu-btn{ display:flex; }
+    .header-cta .btn{ display:none; }
+  }
+  @media (min-width: 861px){
+    .phone-link{ display:inline; }
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-family:'Oswald', sans-serif;
+    font-size:13px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:14px 24px;
+    border-radius:3px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .btn-primary{
+    background:var(--barn);
+    color:#F6EFDD;
+    box-shadow:0 2px 0 var(--barn-deep);
+  }
+  .btn-primary:hover{ background:var(--barn-deep); transform:translateY(1px); box-shadow:0 1px 0 var(--barn-deep); }
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--paper);
+    color:var(--paper);
+  }
+  .btn-ghost:hover{ background:var(--paper); color:var(--ink); }
+  .btn-ghost.dark{ border-color:var(--ink); color:var(--ink); }
+  .btn-ghost.dark:hover{ background:var(--ink); color:var(--paper); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:640px;
+    display:flex;
+    align-items:center;
+    padding:120px 24px 90px;
+    color:var(--paper);
+  }
+  .hero .photo{
+    position:absolute; inset:0;
+    z-index:0;
+  }
+  .hero .photo::after{
+    background:linear-gradient(180deg, rgba(36,31,23,0.38) 0%, rgba(36,31,23,0.48) 40%, rgba(36,31,23,0.86) 100%);
+    mix-blend-mode:normal;
+  }
+  .hero .photo img{ filter:saturate(1.15) contrast(1.06) brightness(0.88); }
+
+  .hero-inner{ position:relative; z-index:1; max-width:760px; margin:0 auto; text-align:center; }
+  .hero-eyebrow{
+    font-family:'Oswald', sans-serif;
+    font-size:13px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:#E7CB98;
+    border-top:1px solid rgba(231,203,152,0.6);
+    border-bottom:1px solid rgba(231,203,152,0.6);
+    display:inline-block;
+    padding:7px 18px;
+    margin-bottom:28px;
+  }
+  .hero h1{
+    font-size:clamp(42px, 7.4vw, 82px);
+    line-height:1.04;
+    color:#F8F3E4;
+    text-shadow:0 2px 24px rgba(0,0,0,0.35);
+  }
+  .hero h1 .accent{ color:#F3A45C; }
+  .hero-lines{
+    margin-top:22px;
+    font-family:'Oswald', sans-serif;
+    font-size:clamp(15px, 2.4vw, 19px);
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    color:#E4DBC2;
+  }
+  .hero-lines span{ display:inline-block; }
+  .hero-lede{
+    margin:26px auto 0;
+    max-width:560px;
+    font-size:18px;
+    color:#DFD5B8;
+  }
+  .hero-actions{
+    margin-top:38px;
+    display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+  }
+  .hero-place{
+    margin-top:34px;
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:#C9BC9A;
+  }
+
+  .hero-fade{
+    opacity:0;
+    transform:translateY(14px);
+    animation:heroRise .7s ease forwards;
+  }
+  .hero-fade:nth-child(2){ animation-delay:.08s; }
+  .hero-fade:nth-child(3){ animation-delay:.16s; }
+  .hero-fade:nth-child(4){ animation-delay:.24s; }
+  .hero-fade:nth-child(5){ animation-delay:.32s; }
+  @keyframes heroRise{ to{ opacity:1; transform:translateY(0); } }
+
+  /* ---------- Section shell ---------- */
+  section{ padding:84px 0; }
+  .section-head{
+    max-width:600px;
+    margin-bottom:52px;
+  }
+  .section-head h2{
+    font-size:clamp(30px, 4vw, 42px);
+    color:var(--ink);
+  }
+  .section-head p{
+    margin-top:14px;
+    color:var(--ink-soft);
+    font-size:17px;
+  }
+
+  /* ---------- Lots (what we auction) ---------- */
+  .lots{
+    background:var(--paper-deep);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .lot-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:30px;
+  }
+  @media (max-width: 860px){ .lot-grid{ grid-template-columns:1fr; } }
+
+  .lot-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .lot-card:hover{ transform:translateY(-4px); box-shadow:0 12px 24px -14px rgba(38,35,29,0.35); }
+  .lot-card:nth-child(2){ transform:translateY(18px); }
+  @media (max-width: 860px){ .lot-card:nth-child(2){ transform:none; } }
+
+  .lot-photo{
+    aspect-ratio:4/3;
+  }
+  .lot-card:hover .lot-photo img{ transform:scale(1.06); }
+  .lot-photo::before{
+    content:'';
+    position:absolute; top:12px; left:12px;
+    width:11px; height:11px;
+    border-radius:50%;
+    background:var(--paper);
+    box-shadow:inset 0 1px 2px rgba(0,0,0,0.3);
+    z-index:2;
+  }
+
+  .lot-body{ padding:26px 26px 28px; }
+  .lot-number{
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--brass-deep);
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:16px;
+  }
+  .lot-number::after{
+    content:'';
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+  .lot-card h3{
+    font-size:25px;
+    margin-bottom:10px;
+    color:var(--ink);
+  }
+  .lot-card p{
+    color:var(--ink-soft);
+    font-size:15.5px;
+    margin:0;
+  }
+  .lot-card .lot-examples{
+    margin-top:16px;
+    padding-top:16px;
+    border-top:1px dashed var(--line);
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+    text-transform:none;
+  }
+
+  /* ---------- About / trust ---------- */
+  .about{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    align-items:center;
+  }
+  @media (max-width: 900px){
+    .about{ grid-template-columns:1fr; gap:40px; }
+  }
+  .about h2{
+    font-size:clamp(28px, 3.6vw, 38px);
+    margin-bottom:20px;
+  }
+  .about p{ color:var(--ink-soft); margin:0 0 16px; }
+  .about p:last-of-type{ margin-bottom:0; }
+
+  .about-photo{
+    aspect-ratio:5/6;
+    border-radius:4px;
+    box-shadow:14px 14px 0 var(--paper-deep), 14px 14px 0 1px var(--line);
+  }
+  .about-photo img{ filter:saturate(1.12) contrast(1.05) brightness(1.03); }
+  .about-photo::after{ display:none; }
+  @media (max-width: 900px){ .about-photo{ box-shadow:10px 10px 0 var(--paper-deep), 10px 10px 0 1px var(--line); } }
+
+  .trust-list{
+    list-style:none;
+    margin:26px 0 0;
+    padding:0;
+    display:grid;
+    gap:12px;
+  }
+  .trust-list li{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    color:var(--ink-soft);
+    font-size:15.5px;
+  }
+  .trust-list .mark{
+    color:var(--barn);
+    font-family:'Rye', serif;
+    font-size:16px;
+    line-height:1.5;
+    flex:none;
+  }
+
+  /* ---------- Real estate listings ---------- */
+  .real-estate{
+    background:var(--paper-deep);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .re-filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .re-filter{
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:9px 20px;
+    border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    color:var(--ink-soft);
+    cursor:pointer;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  .re-filter:hover{ border-color:var(--brass); color:var(--brass-deep); }
+  .re-filter.is-active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+
+  .re-featured{
+    display:grid;
+    grid-template-columns:1.15fr 1fr;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    margin-bottom:30px;
+  }
+  @media (max-width: 860px){ .re-featured{ grid-template-columns:1fr; } }
+  .re-featured .re-photo{ aspect-ratio:auto; min-height:340px; }
+  @media (max-width: 860px){ .re-featured .re-photo{ min-height:240px; } }
+  .re-featured-body{
+    padding:40px 40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .re-featured-tag{
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass-deep);
+    margin-bottom:16px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .re-featured-tag::before{ content:'\2605'; color:var(--sun); font-size:13px; }
+  .re-featured-body .re-price{ font-size:21px; }
+  .re-featured-body h3{ font-size:32px; margin-bottom:10px; }
+  .re-featured-body .re-desc{ font-size:16px; }
+
+  .re-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:30px;
+  }
+  @media (max-width: 860px){ .re-grid{ grid-template-columns:1fr; } }
+
+  .re-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .re-card:hover{ transform:translateY(-4px); box-shadow:0 12px 24px -14px rgba(38,35,29,0.35); }
+  .re-photo{ aspect-ratio:4/3; }
+  .re-card:hover .re-photo img{ transform:scale(1.06); }
+
+  .re-status{
+    position:absolute;
+    top:14px; left:14px;
+    z-index:1;
+    font-family:'Oswald', sans-serif;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:5px 11px;
+    border-radius:2px;
+    color:#F6EFDD;
+    background:var(--moss);
+  }
+  .re-status[data-status="pending"]{ background:var(--brass-deep); }
+  .re-status[data-status="sold"]{ background:var(--barn); }
+
+  .re-body{ padding:24px 26px 28px; }
+  .re-price{
+    font-family:'Oswald', sans-serif;
+    font-size:15px;
+    letter-spacing:0.04em;
+    color:var(--brass-deep);
+    margin-bottom:8px;
+  }
+  .re-card h3{
+    font-size:22px;
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .re-meta{
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .re-desc{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin:0;
+  }
+  .re-empty{
+    text-align:center;
+    color:var(--ink-soft);
+    font-family:'Oswald', sans-serif;
+    font-size:13px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:20px 0 4px;
+  }
+  .re-loading{
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:15px;
+    padding:20px 0;
+  }
+
+  /* ---------- Upcoming auctions ---------- */
+  .upcoming{
+    background:var(--ink);
+    color:var(--paper);
+    position:relative;
+    overflow:hidden;
+  }
+  .upcoming::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(45deg, rgba(241,236,220,0.025) 0 2px, transparent 2px 26px);
+    pointer-events:none;
+  }
+  .upcoming .wrap{ position:relative; }
+  .upcoming .section-head h2, .upcoming .section-head p{ color:var(--paper); }
+  .upcoming .section-head p{ color:#C9C2AD; }
+  .upcoming-card{
+    border:1px solid rgba(241,236,220,0.28);
+    border-radius:4px;
+    padding:36px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .upcoming-card .label{
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin-bottom:10px;
+  }
+  .upcoming-card h3{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:22px;
+    color:var(--paper);
+    margin-bottom:8px;
+  }
+  .upcoming-card p{ color:#C9C2AD; margin:0; max-width:420px; }
+  .upcoming .btn-primary{ box-shadow:0 2px 0 var(--brass-deep); background:var(--brass); }
+  .upcoming .btn-primary:hover{ background:var(--brass-deep); }
+
+  /* ---------- Contact ---------- */
+  .contact{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+  }
+  @media (max-width: 860px){ .contact{ grid-template-columns:1fr; gap:36px; } }
+
+  .contact h2{ font-size:clamp(28px, 3.6vw, 38px); margin-bottom:16px; }
+  .contact p.lede{ color:var(--ink-soft); margin:0 0 30px; max-width:440px; }
+
+  .contact-detail{
+    display:flex; gap:16px; padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .contact-detail:last-of-type{ border-bottom:1px solid var(--line); }
+  .contact-detail .k{
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brass-deep);
+    width:110px;
+    flex:none;
+    padding-top:2px;
+  }
+  .contact-detail .v a{ text-decoration:none; }
+  .contact-detail .v a:hover{ color:var(--barn); }
+
+  .consign-box{
+    background:var(--paper-deep);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:34px;
+  }
+  .consign-box h3{
+    font-family:'Source Serif 4', serif;
+    font-weight:600;
+    font-size:21px;
+    margin-bottom:12px;
+    color:var(--ink);
+  }
+  .consign-box p{ color:var(--ink-soft); margin:0 0 22px; font-size:15.5px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:34px 0;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .footer-inner p{
+    margin:0;
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    letter-spacing:0.04em;
+    color:var(--ink-soft);
+  }
+  .footer-credit{
+    font-family:'Oswald', sans-serif;
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:#9C9478;
+  }
+  .footer-credit a{ text-decoration:none; color:inherit; border-bottom:1px solid rgba(156,148,120,0.5); }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">DA</span>
+      <span class="brand-text">
+        <span class="brand-name">Derryberry Auction Co.</span>
+        <span class="brand-sub">Decaturville, Tennessee</span>
+      </span>
+    </a>
+    <nav class="primary" id="primaryNav">
+      <a href="#real-estate">Real Estate</a>
+      <a href="#lots">What We Auction</a>
+      <a href="#about">About</a>
+      <a href="#upcoming">Upcoming</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-cta">
+      <a class="phone-link" href="tel:7317332170">(731) 733-2170</a>
+      <a class="btn btn-primary" href="https://hibid.com/company/143457/derryberry-auction-co-" target="_blank" rel="noopener">Current Lots</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="photo" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1726912085151-37db19971d84?auto=format&fit=crop&w=2200&q=80" alt="" loading="eager">
+    </div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow hero-fade">Public Auction House &middot; Decatur County, TN</span>
+      <h1 class="hero-fade">Everything sells<br>when it's sold <span class="accent">right</span>.</h1>
+      <p class="hero-lines hero-fade"><span>Vehicles.</span> &nbsp; <span>Estates.</span> &nbsp; <span>Farm &amp; tools.</span></p>
+      <p class="hero-lede hero-fade">Derryberry Auction Co. runs honest, well-run auctions out of Decaturville for buyers and sellers across West Tennessee — in person and online.</p>
+      <div class="hero-actions hero-fade">
+        <a class="btn btn-primary" href="https://hibid.com/company/143457/derryberry-auction-co-" target="_blank" rel="noopener">See Current Lots on HiBid</a>
+        <a class="btn btn-ghost" href="#contact">Ask About Consigning</a>
+      </div>
+      <p class="hero-place hero-fade">1118 Hwy 100 West, Decaturville, TN 38329</p>
+    </div>
+  </section>
+
+  <section class="real-estate" id="real-estate">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Real estate listings</h2>
+        <p>Land and property currently offered through Derryberry Auction Co.</p>
+      </div>
+      <div class="re-filters" id="reFilters" hidden>
+        <button class="re-filter is-active" data-filter="all" type="button">All</button>
+        <button class="re-filter" data-filter="for sale" type="button">For Sale</button>
+        <button class="re-filter" data-filter="pending" type="button">Pending</button>
+        <button class="re-filter" data-filter="sold" type="button">Sold</button>
+      </div>
+      <p class="re-loading" id="reLoading">Loading current listings&hellip;</p>
+      <div class="re-featured reveal" id="reFeatured" hidden></div>
+      <div class="re-grid" id="reGrid" hidden></div>
+      <p class="re-empty" id="reEmpty" hidden>No properties listed at the moment — check back soon.</p>
+    </div>
+  </section>
+
+  <section class="lots" id="lots">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>What we auction</h2>
+        <p>Three lanes, one auction block. If it needs a new owner, we'll get it there.</p>
+      </div>
+      <div class="lot-grid">
+        <article class="lot-card reveal">
+          <div class="lot-photo photo">
+            <img src="https://images.unsplash.com/photo-1510253557056-5dd072a2a7ea?auto=format&fit=crop&w=900&q=80" alt="Pickup truck consigned for a Derryberry vehicle auction" loading="lazy">
+          </div>
+          <div class="lot-body">
+            <div class="lot-number">Lot 01</div>
+            <h3>Vehicles</h3>
+            <p>Cars, trucks, and titled equipment sold as-is with clear paperwork and an honest look before you bid.</p>
+            <div class="lot-examples">Cars &nbsp;/&nbsp; Trucks &nbsp;/&nbsp; Trailers</div>
+          </div>
+        </article>
+        <article class="lot-card reveal">
+          <div class="lot-photo photo">
+            <img src="https://images.unsplash.com/photo-1762186541157-6ce4df0a6ee0?auto=format&fit=crop&w=900&q=80" alt="Antique desk and furnishings from an estate sale" loading="lazy">
+          </div>
+          <div class="lot-body">
+            <div class="lot-number">Lot 02</div>
+            <h3>Estate &amp; Personal Property</h3>
+            <p>Full estates handled with care — furniture, tools, collectibles, and household goods, cataloged lot by lot.</p>
+            <div class="lot-examples">Furniture &nbsp;/&nbsp; Antiques &nbsp;/&nbsp; Household</div>
+          </div>
+        </article>
+        <article class="lot-card reveal">
+          <div class="lot-photo photo">
+            <img src="https://images.unsplash.com/photo-1706687094844-d39169478874?auto=format&fit=crop&w=900&q=80" alt="Farm equipment consigned for a Derryberry auction" loading="lazy">
+          </div>
+          <div class="lot-body">
+            <div class="lot-number">Lot 03</div>
+            <h3>Farm &amp; Equipment</h3>
+            <p>Tractors, implements, and shop tools for the working farms and shops of Decatur County and beyond.</p>
+            <div class="lot-examples">Tractors &nbsp;/&nbsp; Implements &nbsp;/&nbsp; Tools</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap about">
+      <div class="reveal">
+        <h2>Run out of Decaturville, trusted across the county line.</h2>
+        <p>Derryberry Auction Co. is a family-run auction house based on Highway 100 West in Decaturville. We handle vehicle sales, full estate liquidations, and farm equipment for sellers throughout Decatur, Henderson, and the surrounding counties.</p>
+        <p>Every lot gets looked at, described honestly, and sold to the person willing to pay for it — no reserves hiding behind fine print, no surprises at pickup.</p>
+        <ul class="trust-list">
+          <li><span class="mark">&mdash;</span> In-person and online bidding through HiBid</li>
+          <li><span class="mark">&mdash;</span> Vehicle titles and paperwork handled on-site</li>
+          <li><span class="mark">&mdash;</span> Full-service estate and downsizing sales</li>
+          <li><span class="mark">&mdash;</span> Serving Decatur County and West Tennessee</li>
+        </ul>
+      </div>
+      <div class="about-photo photo reveal">
+        <img src="https://images.unsplash.com/photo-1560700849-8880e5f78c02?auto=format&fit=crop&w=1000&q=80" alt="Red barn on a rural West Tennessee farm">
+      </div>
+    </div>
+  </section>
+
+  <section class="upcoming" id="upcoming">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Upcoming auctions</h2>
+        <p>New sale dates are posted directly to our HiBid page as they're scheduled.</p>
+      </div>
+      <div class="upcoming-card reveal">
+        <div>
+          <div class="label">Stay in the loop</div>
+          <h3>No auction is scheduled at this moment.</h3>
+          <p>Follow our HiBid company page to be the first to see new vehicle, estate, and farm auction listings when they go up.</p>
+        </div>
+        <a class="btn btn-primary" href="https://hibid.com/company/143457/derryberry-auction-co-" target="_blank" rel="noopener">Follow on HiBid</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact">
+      <div>
+        <h2>Get in touch</h2>
+        <p class="lede">Have something to sell, or a question about an upcoming sale? Reach out directly — we're happy to talk it through.</p>
+
+        <div class="contact-detail">
+          <div class="k">Address</div>
+          <div class="v">1118 Hwy 100 West<br>Decaturville, TN 38329</div>
+        </div>
+        <div class="contact-detail">
+          <div class="k">Phone</div>
+          <div class="v"><a href="tel:7317332170">(731) 733-2170</a></div>
+        </div>
+        <div class="contact-detail">
+          <div class="k">Email</div>
+          <div class="v"><a href="mailto:derryberrylee35@gmail.com">derryberrylee35@gmail.com</a></div>
+        </div>
+      </div>
+
+      <div class="consign-box reveal">
+        <h3>Thinking about consigning?</h3>
+        <p>Whether it's one vehicle or a whole estate, tell us what you've got and we'll walk you through how our auctions work, what to expect, and when we can get it on the block.</p>
+        <a class="btn btn-primary" href="mailto:derryberrylee35@gmail.com?subject=Consignment%20Inquiry">Email Us About Consigning</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <p>Derryberry Auction Co. &nbsp;&middot;&nbsp; Decaturville, TN &nbsp;&middot;&nbsp; (731) 733-2170</p>
+    <p class="footer-credit">Site design by <a href="#" target="_blank" rel="noopener">LIT America</a></p>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll for cards and section intros — defined first
+  // since content rendered below (real estate cards) uses it immediately.
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  function observeReveals(root = document){
+    root.querySelectorAll('.reveal:not(.is-visible)').forEach(el => revealObserver.observe(el));
+  }
+  observeReveals(); // covers static section content already in the page
+
+  /* =========================================================
+     REAL ESTATE LISTINGS — powered by a Google Sheet
+     -----------------------------------------------------------
+     HOW TO CONNECT YOUR OWN SHEET (no coding needed after this):
+     1. Make a copy of the template sheet LIT America gave you.
+     2. In Google Sheets: File → Share → Publish to web is NOT
+        needed — just make sure sharing is set to
+        "Anyone with the link → Viewer".
+     3. Copy the long ID from your sheet's URL. It's the part
+        between /d/ and /edit, e.g.
+        docs.google.com/spreadsheets/d/{THIS_PART}/edit
+     4. Paste that ID below as SHEET_ID. Save this file and
+        commit it to GitHub — the site updates itself from then
+        on, no more code edits needed for new listings.
+     ========================================================= */
+  const SHEET_ID = "PASTE_YOUR_GOOGLE_SHEET_ID_HERE";
+  const SHEET_TAB = "Listings"; // must match the tab name in the sheet
+
+  // Shown only if the sheet above isn't connected yet, or can't
+  // be reached — keeps the section looking populated for demos.
+  const FALLBACK_LISTINGS = [
+    { status: "For Sale", address: "212 River Bend Rd, Decaturville", price: "$189,000", type: "House & Land", acreage: "3.4 acres", desc: "3BR/2BA farmhouse with a barn and pond frontage, offered through an upcoming Derryberry auction.", photo: "https://images.unsplash.com/photo-1560700849-8880e5f78c02?auto=format&fit=crop&w=900&q=80" },
+    { status: "For Sale", address: "Lot 7, Hwy 100 West", price: "$64,500", type: "Vacant Land", acreage: "12 acres", desc: "Open pasture and hardwoods, road frontage, ready to build or run stock.", photo: "https://images.unsplash.com/photo-1706687094844-d39169478874?auto=format&fit=crop&w=900&q=80" },
+    { status: "Pending", address: "108 Main St, Decaturville", price: "$142,000", type: "Commercial", acreage: "0.6 acres", desc: "Storefront with rear storage, previously operated as a retail shop.", photo: "https://images.unsplash.com/photo-1510253557056-5dd072a2a7ea?auto=format&fit=crop&w=900&q=80" }
+  ];
+
+  function reCard(item){
+    const statusKey = (item.status || "").toLowerCase().trim();
+    return `
+      <article class="re-card reveal">
+        <div class="re-photo photo">
+          <span class="re-status" data-status="${statusKey}">${item.status || "For Sale"}</span>
+          <img src="${item.photo}" alt="${item.address}" loading="lazy">
+        </div>
+        <div class="re-body">
+          <div class="re-price">${item.price || "Call for price"}</div>
+          <h3>${item.address}</h3>
+          <p class="re-meta">${[item.type, item.acreage].filter(Boolean).join(" &middot; ")}</p>
+          <p class="re-desc">${item.desc || ""}</p>
+        </div>
+      </article>`;
+  }
+
+  function reFeaturedCard(item){
+    const statusKey = (item.status || "").toLowerCase().trim();
+    return `
+      <div class="re-photo photo">
+        <span class="re-status" data-status="${statusKey}">${item.status || "For Sale"}</span>
+        <img src="${item.photo}" alt="${item.address}" loading="lazy">
+      </div>
+      <div class="re-featured-body">
+        <div class="re-featured-tag">Featured Listing</div>
+        <div class="re-price">${item.price || "Call for price"}</div>
+        <h3>${item.address}</h3>
+        <p class="re-meta">${[item.type, item.acreage].filter(Boolean).join(" &middot; ")}</p>
+        <p class="re-desc">${item.desc || ""}</p>
+      </div>`;
+  }
+
+  let ALL_LISTINGS = [];
+
+  function applyFilter(filterKey){
+    const grid = document.getElementById('reGrid');
+    const featured = document.getElementById('reFeatured');
+    const empty = document.getElementById('reEmpty');
+
+    const items = filterKey === 'all'
+      ? ALL_LISTINGS
+      : ALL_LISTINGS.filter(i => (i.status || '').toLowerCase().trim() === filterKey);
+
+    if (items.length === 0){
+      grid.hidden = true; grid.innerHTML = '';
+      featured.hidden = true; featured.innerHTML = '';
+      empty.hidden = false;
+      return;
+    }
+    empty.hidden = true;
+
+    if (filterKey === 'all'){
+      featured.innerHTML = reFeaturedCard(items[0]);
+      featured.hidden = false;
+      featured.classList.remove('is-visible'); // re-trigger reveal for new content
+      grid.innerHTML = items.slice(1).map(reCard).join('');
+    } else {
+      featured.hidden = true; featured.innerHTML = '';
+      grid.innerHTML = items.map(reCard).join('');
+    }
+    grid.hidden = grid.innerHTML.trim() === '';
+    observeReveals(document.getElementById('real-estate'));
+  }
+
+  function renderListings(items){
+    const loading = document.getElementById('reLoading');
+    const filters = document.getElementById('reFilters');
+    loading.hidden = true;
+    ALL_LISTINGS = items || [];
+    if (ALL_LISTINGS.length === 0){
+      document.getElementById('reEmpty').hidden = false;
+      return;
+    }
+    filters.hidden = false;
+    document.querySelectorAll('.re-filter').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.filter === 'all');
+    });
+    applyFilter('all');
+  }
+
+  document.querySelectorAll('.re-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.re-filter').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      applyFilter(btn.dataset.filter);
+    });
+  });
+
+  async function loadRealEstateListings(){
+    if (!SHEET_ID || SHEET_ID === "PASTE_YOUR_GOOGLE_SHEET_ID_HERE"){
+      renderListings(FALLBACK_LISTINGS);
+      return;
+    }
+    try{
+      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_TAB)}`;
+      const res = await fetch(url);
+      const text = await res.text();
+      const match = text.match(/setResponse\(([\s\S]*)\);\s*$/);
+      if (!match) throw new Error("Unexpected sheet response");
+      const json = JSON.parse(match[1]);
+      const rows = (json.table.rows || []).map(r =>
+        (r.c || []).map(cell => (cell && cell.v != null) ? String(cell.v) : "")
+      );
+      // Column order expected: Status | Address | Price | Type | Acreage | Description | Photo URL
+      const items = rows
+        .filter(r => r[1]) // skip blank rows (no address)
+        .map(r => ({
+          status: r[0], address: r[1], price: r[2], type: r[3],
+          acreage: r[4], desc: r[5], photo: r[6]
+        }));
+      renderListings(items);
+    }catch(err){
+      // Sheet not shared correctly, tab renamed, or offline — fall
+      // back quietly rather than showing a broken section.
+      renderListings(FALLBACK_LISTINGS);
+    }
+  }
+  loadRealEstateListings();
+
+  const menuBtn = document.getElementById('menuBtn');
+  const nav = document.getElementById('primaryNav');
+  menuBtn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Highlight the current section's nav link while scrolling
+  const navLinks = document.querySelectorAll('nav.primary a');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const link = document.querySelector(`nav.primary a[href="#${entry.target.id}"]`);
+      if (!link) return;
+      navLinks.forEach(l => l.classList.remove('is-active'));
+      link.classList.add('is-active');
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => sectionObserver.observe(s));
+</script>
+
+</body>
+</html>
